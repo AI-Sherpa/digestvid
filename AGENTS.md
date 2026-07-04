@@ -12,7 +12,7 @@ This repo has a CodeGraph index at `.codegraph/codegraph.db`. For symbol/structu
 Before your first `codegraph_*` call this session, load the tool schemas in one shot:
 
 ```
-ToolSearch query="select:codegraph_search,codegraph_callers,codegraph_callees,codegraph_node,codegraph_explore,codegraph_context,codegraph_impact,codegraph_files,codegraph_status"
+ToolSearch query="select:mcp__codegraph__codegraph_search,mcp__codegraph__codegraph_callers,mcp__codegraph__codegraph_callees,mcp__codegraph__codegraph_node,mcp__codegraph__codegraph_explore,mcp__codegraph__codegraph_context,mcp__codegraph__codegraph_impact,mcp__codegraph__codegraph_files,mcp__codegraph__codegraph_status"
 ```
 
 The codegraph MCP tools are deferred by default — their schemas aren't in scope until you fetch them. Skip this and your first call fails with `InputValidationError`, and you'll be tempted to give up and `Grep`. Don't.
@@ -95,7 +95,7 @@ Core dependencies (from `setup.py`): moviepy, openai-whisper, openai, yt_dlp, py
 - The `.env` file is gitignored — use it for API keys/secrets locally
 - Entry point is defined as `digestvid=digestvid.main:main` in setup.py — this needs to be updated for gptexcel
 
-<!-- projindex-cascaded-must-dos v2 -->
+<!-- projindex-cascaded-must-dos v3 -->
 
 ## Must-Dos — cascaded standards for every /opt/dev/ repo
 
@@ -153,3 +153,21 @@ describes the changed thing is stale.
   source-of-truth docs: correct any port, status, convention, or architecture
   line your change invalidates, in the same commit.
 - Stale instructions poison every future agent session; wrong is worse than missing.
+
+### 5. Record durable learnings in persistent memory when something significant changes
+
+When you learn something a future session would waste time rediscovering — a
+non-obvious constraint, the root cause behind a fix, a workflow gotcha, or an
+architectural decision that isn't derivable from the code — capture it in this
+project's persistent memory (`~/.claude/projects/<project-slug>/memory/`) in the
+same session, not just at session end.
+
+- One durable fact per memory file, with a one-line pointer in `MEMORY.md`; update
+  the existing file rather than creating a duplicate, and delete memories that turn
+  out to be wrong.
+- Don't record what the repo already captures — code structure, git history, or
+  this instruction file. Record only what was non-obvious.
+- A stale or missing memory costs every future agent the same rediscovery; treat
+  memory hygiene like doc hygiene (see #4).
+
+<!-- projindex-cascaded-must-dos:end v3 -->
